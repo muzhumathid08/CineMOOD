@@ -1,0 +1,19 @@
+fetch("http://localhost:8080/movies/happy")
+
+    .then(res => res.json())
+
+    .then(data => {
+
+        console.log("Backend Connected ✅");
+
+        console.log(data);
+
+    })
+
+    .catch(error => {
+
+        console.log("Backend Error ❌");
+
+        console.log(error);
+
+    });

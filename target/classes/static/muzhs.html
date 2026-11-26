@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMOOD</title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/muzhs.css">
+
+</head>
+
+<body>
+
+<header class="glass">
+    <div class="logo">CineMOOD</div>
+
+    <nav>
+        <a href="muzhs.html">Home</a>
+
+        <a href="movies.html">Movies</a>
+
+        <a href="genres.html">Genres</a>
+
+        <a href="#" onclick="showWatchlist()">
+            Watchlist❤️
+        </a>
+    </nav>
+
+    <div class="top-icons">
+
+        <button onclick="logout()" class="logout-btn">
+            Logout↩
+        </button>
+
+    </div>
+</header>
+
+<section class="hero-banner">
+    <div class="overlay">
+        <h1>From Feelings to Films</h1>
+        <p>Discover movies based on your mood instantly</p>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search movies...">
+            <button type="button" onclick="searchMovies()">
+                Search 🔍
+            </button>        </div>
+
+        <div class="moods">
+            <button onclick="getMoviesByMood('happy')">😊 Happy</button>
+            <button onclick="getMoviesByMood('sad')">😢 Sad</button>
+            <button onclick="getMoviesByMood('action')">🔥 Action</button>
+            <button onclick="getMoviesByMood('chill')">😌 Chill</button>
+        </div>
+    </div>
+</section>
+
+<div id="movie-container"></div>
+
+<div id="movie-popup" class="popup hidden">
+
+    <div class="popup-content">
+
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+
+        <img id="popup-poster" alt="Movie Poster">
+
+        <h2 id="popup-title"></h2>
+
+        <p id="popup-overview"></p>
+
+        <p>
+            ⭐ Rating:
+            <span id="popup-rating"></span>
+        </p>
+
+        <p>
+            📅 Release:
+            <span id="popup-date"></span>
+        </p>
+
+        <button id="popup-trailer">
+            ▶ Watch Trailer
+        </button>
+
+    </div>
+
+</div>
+
+<script src="js/muzhs.js"></script>
+
+
+</body>
+</html>
