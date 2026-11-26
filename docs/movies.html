@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CineMOOD Movies</title>
+
+    <link rel="stylesheet"
+          href="css/muzhs.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="glass">
+
+    <div class="logo">🎬 CineMOOD</div>
+
+    <nav>
+
+        <a href="muzhs.html">Home</a>
+
+        <a href="movies.html">Movies</a>
+
+        <a href="genres.html">Genres</a>
+
+        <a href="#" onclick="showWatchlist()">
+            Watchlist❤️
+        </a>
+
+    </nav>
+
+</header>
+
+<section class="hero-banner">
+
+    <div class="overlay">
+
+        <h1>Popular Tamil Movies 🍿</h1>
+
+        <p>
+            Discover trending Tamil cinema instantly
+        </p>
+
+    </div>
+
+</section>
+
+<h2 style="padding-left:30px;">
+    Trending Movies 🔥
+</h2>
+
+<div id="movie-container"></div>
+
+<script>
+
+    const API_KEY =
+        "498eaf207016c39539877283304113db";
+
+    const BASE_URL =
+        "https://api.themoviedb.org/3";
+
+    const movieContainer =
+        document.getElementById("movie-container");
+
+    window.onload = () => {
+
+        fetch(
+            `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_original_language=ta&sort_by=popularity.desc`
+        )
+
+            .then(res => res.json())
+
+            .then(data => {
+
+                displayMovies(data.results);
+
+            });
+
+    };
+
+    function displayMovies(movies){
+
+        movieContainer.innerHTML = "";
+
+        movies.forEach(movie => {
+
+            const poster = movie.poster_path
+                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                : "https://via.placeholder.com/200";
+
+            const movieCard =
+                document.createElement("div");
+
+            movieCard.classList.add("movie-card");
+
+            movieCard.innerHTML = `
+
+<div class="rating">
+⭐ ${movie.vote_average.toFixed(1)}
+</div>
+
+<img src="${poster}" alt="${movie.title}">
+
+<h3>${movie.title}</h3>
+
+<p style="padding:10px;">
+${movie.release_date}
+</p>
+
+<button onclick="watchTrailer(${movie.id})">
+▶ Trailer
+</button>
+
+`;
+
+            movieContainer.appendChild(movieCard);
+
+        });
+
+    }
+
+    function watchTrailer(id){
+
+        fetch(
+            `${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}`
+        )
+
+            .then(res => res.json())
+
+            .then(data => {
+
+                const trailer =
+                    data.results.find(
+
+                        v => v.type === "Trailer"
+                            && v.site === "YouTube"
+
+                    );
+
+                if(trailer){
+
+                    window.open(
+                        `https://youtube.com/watch?v=${trailer.key}`,
+                        "_blank"
+                    );
+
+                }else{
+
+                    alert("Trailer not available 😢");
+
+                }
+
+            });
+
+    }
+
+    function showWatchlist(){
+
+        window.location.href = "muzhs.html";
+
+    }
+
+</script>
+
+</body>
+</html>
